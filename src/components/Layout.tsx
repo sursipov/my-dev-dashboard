@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, FolderKanban, StickyNote, Calendar } from "lucide-react";
+import { Home, FolderKanban, FileText, Calendar, Target } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,19 +11,26 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navItems = [
-    { icon: Home, label: "Дашборд", path: "/" },
-    { icon: FolderKanban, label: "Проекты", path: "/projects" },
-    { icon: StickyNote, label: "Заметки", path: "/notes" },
-    { icon: Calendar, label: "Планирование", path: "/planning" },
+    { icon: Home, label: t('home'), path: "/" },
+    { icon: FolderKanban, label: t('projects'), path: "/projects" },
+    { icon: FileText, label: t('notes'), path: "/notes" },
+    { icon: Calendar, label: t('planning'), path: "/planning" },
+    { icon: Target, label: t('goals'), path: "/goals" },
   ];
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       <header className="fixed top-0 left-0 right-0 z-50 p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gradient">ProjectFlow</h1>
+          <Link 
+            to="/" 
+            className="text-2xl font-bold text-gradient hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            SursipFlow
+          </Link>
           <ThemeToggle />
         </div>
       </header>

@@ -9,6 +9,10 @@ import Projects from "./pages/Projects";
 import Notes from "./pages/Notes";
 import Planning from "./pages/Planning";
 import NotFound from "./pages/NotFound";
+import Settings from "./pages/Settings";
+import Goals from "./pages/Goals";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
 
@@ -18,16 +22,21 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/notes" element={<Notes />} />
-            <Route path="/planning" element={<Planning />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
+        <LanguageProvider>
+          <CurrencyProvider>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/planning" element={<Planning />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/goals" element={<Goals />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Layout>
+          </CurrencyProvider>
+        </LanguageProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

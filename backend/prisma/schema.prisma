@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev-dashboard.db"
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  cost      Float
+  startDate DateTime
+  deadline  DateTime
+  notes     String?
+  completed Boolean  @default(false)
+  completionDate DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  tags      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DayPlan {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @unique
+  tasks     Json
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectType {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+model Goal {
+  id           Int      @id @default(autoincrement())
+  month        String   @unique
+  targetAmount Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
